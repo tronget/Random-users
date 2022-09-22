@@ -3,11 +3,15 @@ const userWrap = document.querySelector(".user");
 generBtn.addEventListener('click', generateUser);
 
 async function generateUser() {
-	const response = await fetch('https://randomuser.me/api/');
-	const responseJSON = await response.json();
-	const data = responseJSON.results[0];
-	let name = `${data.name.first} ${data.name.last}`;
-	makeUser(name, data.picture.large, data.phone, data.email);
+	try {
+		const response = await fetch('https://randomuser.me/api/');
+		const responseJSON = await response.json();
+		const data = responseJSON.results[0];
+		let name = `${data.name.first} ${data.name.last}`;
+		makeUser(name, data.picture.large, data.phone, data.email);
+	} catch (e) {
+		console.error(e);
+	}
 }
 function makeUser(name, picture, phone, email) {
 	userWrap.insertAdjacentHTML('afterbegin', `
