@@ -2,13 +2,12 @@ const generBtn = document.getElementById('generate-btn');
 const userWrap = document.querySelector(".user");
 generBtn.addEventListener('click', generateUser);
 
-function generateUser() {
-	fetch('https://randomuser.me/api/').then(data => data.json())
-	.then(data => data.results[0])
-	.then(data => {
-		let name = `${data.name.first} ${data.name.last}`;
-		makeUser(name, data.picture.large, data.phone, data.email);
-	});
+async function generateUser() {
+	const response = await fetch('https://randomuser.me/api/');
+	const responseJSON = await response.json();
+	const data = responseJSON.results[0];
+	let name = `${data.name.first} ${data.name.last}`;
+	makeUser(name, data.picture.large, data.phone, data.email);
 }
 function makeUser(name, picture, phone, email) {
 	userWrap.insertAdjacentHTML('afterbegin', `
